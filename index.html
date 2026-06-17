@@ -3,110 +3,902 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRC Education | Learn • Ask • Grow</title>
-  <meta name="description" content="TRC Education provides trusted online after-school academic support for IGCSE, AS and A Level students." />
-  <link rel="stylesheet" href="style.css" />
+  <title>TRC Edu — Online Tutoring for Every Subject</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky:     #EAF4FF;
+      --ocean:   #2563EB;
+      --ocean-dark: #1D4ED8;
+      --sun:     #FBBF24;
+      --sun-light: #FEF3C7;
+      --mint:    #D1FAE5;
+      --mint-dark: #059669;
+      --coral:   #FEE2E2;
+      --coral-dark: #DC2626;
+      --ink:     #1E293B;
+      --slate:   #64748B;
+      --paper:   #F8FAFC;
+      --white:   #FFFFFF;
+      --radius:  16px;
+      --shadow:  0 4px 24px rgba(37,99,235,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid #E2EAF4;
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px;
+      color: var(--ocean); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo .dot { color: var(--sun); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-weight: 700; font-size: 0.95rem; color: var(--slate);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ocean); }
+    .nav-cta {
+      background: var(--ocean); color: white;
+      padding: 10px 22px; border-radius: 100px;
+      font-weight: 800; font-size: 0.9rem;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--ocean-dark); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2.5px; background: var(--ink); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      background: linear-gradient(135deg, #EAF4FF 0%, #EFF6FF 50%, #FEF9EC 100%);
+      display: flex; align-items: center;
+      padding: 80px 5vw 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(37,99,235,0.10) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -80px; left: 10%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(251,191,36,0.14) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1160px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--sun-light); color: #92400E;
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero-tag span { font-size: 1rem; }
+    .hero h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 600; line-height: 1.18;
+      color: var(--ink); margin-bottom: 22px;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--ocean);
+    }
+    .hero p {
+      font-size: 1.1rem; color: var(--slate);
+      max-width: 460px; margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ocean); color: white;
+      padding: 14px 30px; border-radius: 100px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.30);
+    }
+    .btn-primary:hover { background: var(--ocean-dark); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(37,99,235,0.35); }
+    .btn-secondary {
+      background: white; color: var(--ocean);
+      padding: 14px 30px; border-radius: 100px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; transition: all 0.2s;
+      border: 2px solid var(--ocean);
+    }
+    .btn-secondary:hover { background: var(--sky); transform: translateY(-2px); }
+
+    /* Hero illustration — animated floating cards */
+    .hero-visual {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 16px; position: relative;
+    }
+    .subject-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      max-width: 360px; width: 100%;
+    }
+    .sub-card {
+      background: white; border-radius: var(--radius);
+      padding: 20px 18px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 8px;
+      animation: floatCard 4s ease-in-out infinite;
+      transition: transform 0.2s;
+    }
+    .sub-card:nth-child(2) { animation-delay: 0.6s; }
+    .sub-card:nth-child(3) { animation-delay: 1.2s; }
+    .sub-card:nth-child(4) { animation-delay: 1.8s; }
+    .sub-card:hover { transform: translateY(-4px) scale(1.03); }
+    .sub-icon { font-size: 1.8rem; }
+    .sub-name { font-weight: 800; font-size: 0.9rem; color: var(--ink); }
+    .sub-level { font-size: 0.75rem; color: var(--slate); font-weight: 600; }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .hero-stats {
+      display: flex; gap: 24px; margin-top: 8px; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 1.6rem; font-weight: 900; color: var(--ocean); line-height: 1; }
+    .stat-label { font-size: 0.75rem; color: var(--slate); font-weight: 600; margin-top: 2px; }
+
+    /* ── SUBJECTS ── */
+    .subjects {
+      padding: 90px 5vw;
+      background: var(--paper);
+    }
+    .section-label {
+      text-align: center; font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--ocean); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 600; text-align: center; color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      text-align: center; color: var(--slate);
+      max-width: 520px; margin: 0 auto 52px; font-size: 1.05rem;
+    }
+    .subjects-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px;
+    }
+    .subject-card {
+      background: white; border-radius: var(--radius);
+      padding: 28px 20px; text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1.5px solid transparent;
+      cursor: pointer; transition: all 0.22s;
+      text-decoration: none; color: var(--ink);
+      display: block;
+    }
+    .subject-card:hover {
+      border-color: var(--ocean);
+      box-shadow: 0 8px 28px rgba(37,99,235,0.14);
+      transform: translateY(-4px);
+    }
+    .subject-card .icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+    .subject-card .name { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+    .subject-card .grades { font-size: 0.78rem; color: var(--slate); font-weight: 600; }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 90px 5vw;
+      background: white;
+    }
+    .how-steps {
+      max-width: 940px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px; position: relative;
+    }
+    .how-steps::before {
+      content: '';
+      position: absolute; top: 36px; left: 16%; right: 16%;
+      height: 2px; border-top: 2.5px dashed #C7D9F5;
+      pointer-events: none;
+    }
+    .step {
+      text-align: center; padding: 0 12px;
+    }
+    .step-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin: 0 auto 20px;
+      position: relative; z-index: 1;
+    }
+    .step:nth-child(1) .step-num { background: var(--sun-light); }
+    .step:nth-child(2) .step-num { background: var(--sky); }
+    .step:nth-child(3) .step-num { background: var(--mint); }
+    .step h3 { font-weight: 800; font-size: 1.05rem; margin-bottom: 8px; }
+    .step p { font-size: 0.92rem; color: var(--slate); }
+
+    /* ── TUTORS ── */
+    .tutors {
+      padding: 90px 5vw;
+      background: var(--paper);
+    }
+    .tutors-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .tutor-card {
+      background: white; border-radius: var(--radius);
+      padding: 28px 24px; box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .tutor-card:hover { transform: translateY(-4px); }
+    .tutor-avatar {
+      width: 68px; height: 68px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin-bottom: 14px;
+    }
+    .tutor-card h3 { font-weight: 800; font-size: 1rem; margin-bottom: 2px; }
+    .tutor-subject { font-size: 0.8rem; font-weight: 700; color: var(--ocean); margin-bottom: 8px; }
+    .tutor-bio { font-size: 0.88rem; color: var(--slate); line-height: 1.6; margin-bottom: 14px; }
+    .tutor-meta { display: flex; gap: 14px; }
+    .tutor-meta span {
+      font-size: 0.78rem; font-weight: 700; color: var(--slate);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    /* ── PRICING ── */
+    .pricing {
+      padding: 90px 5vw;
+      background: white;
+    }
+    .pricing-grid {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; align-items: start;
+    }
+    .plan {
+      border-radius: var(--radius); padding: 36px 28px;
+      border: 2px solid #E2EAF4;
+      transition: transform 0.2s;
+    }
+    .plan:hover { transform: translateY(-4px); }
+    .plan.featured {
+      border-color: var(--ocean);
+      background: var(--ocean);
+      color: white;
+      box-shadow: 0 12px 40px rgba(37,99,235,0.25);
+    }
+    .plan-tag {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      background: var(--sun); color: #7C3D00;
+      padding: 4px 12px; border-radius: 100px;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .plan-name { font-weight: 900; font-size: 1.2rem; margin-bottom: 6px; }
+    .plan-price { font-size: 2.4rem; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+    .plan-price sup { font-size: 1rem; font-weight: 700; vertical-align: top; margin-top: 6px; }
+    .plan-period { font-size: 0.82rem; opacity: 0.7; margin-bottom: 24px; }
+    .plan-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .plan-features li { font-size: 0.9rem; display: flex; align-items: flex-start; gap: 8px; }
+    .plan-features li::before { content: '✓'; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+    .plan:not(.featured) .plan-features li::before { color: var(--mint-dark); }
+    .plan-btn {
+      display: block; text-align: center;
+      padding: 13px; border-radius: 100px;
+      font-weight: 800; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .plan:not(.featured) .plan-btn {
+      background: var(--sky); color: var(--ocean);
+      border: 2px solid var(--ocean);
+    }
+    .plan:not(.featured) .plan-btn:hover { background: var(--ocean); color: white; }
+    .plan.featured .plan-btn { background: white; color: var(--ocean); }
+    .plan.featured .plan-btn:hover { background: var(--sun); color: #7C3D00; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 90px 5vw;
+      background: linear-gradient(135deg, #EAF4FF, #EFF6FF);
+    }
+    .test-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .test-card {
+      background: white; border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--shadow);
+    }
+    .test-stars { color: var(--sun); font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .test-quote {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 1rem; color: var(--ink); line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .test-name { font-weight: 800; font-size: 0.9rem; }
+    .test-role { font-size: 0.78rem; color: var(--slate); font-weight: 600; }
+
+    /* ── FAQ ── */
+    .faq {
+      padding: 90px 5vw;
+      background: white;
+    }
+    .faq-list {
+      max-width: 740px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .faq-item {
+      border: 1.5px solid #E2EAF4; border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%; background: none; border: none;
+      padding: 20px 24px; text-align: left;
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.97rem;
+      color: var(--ink); cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; transition: background 0.2s;
+    }
+    .faq-q:hover { background: var(--sky); }
+    .faq-q .arrow { font-size: 1rem; transition: transform 0.3s; flex-shrink: 0; }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+      font-size: 0.93rem; color: var(--slate); line-height: 1.7;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 24px 20px; }
+    .faq-item.open .arrow { transform: rotate(180deg); }
+    .faq-item.open .faq-q { background: var(--sky); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      padding: 80px 5vw;
+      background: var(--ocean);
+      text-align: center; color: white;
+    }
+    .cta-banner h2 {
+      font-family: 'Lora', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 600; margin-bottom: 16px;
+    }
+    .cta-banner p { font-size: 1.05rem; opacity: 0.85; max-width: 480px; margin: 0 auto 36px; }
+    .cta-banner .btn-white {
+      background: white; color: var(--ocean);
+      padding: 14px 36px; border-radius: 100px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; display: inline-block;
+      transition: all 0.2s;
+    }
+    .cta-banner .btn-white:hover { background: var(--sun); color: #7C3D00; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: #94A3B8;
+      padding: 60px 5vw 32px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo {
+      font-size: 1.5rem; font-weight: 900; color: white;
+      display: block; margin-bottom: 14px; text-decoration: none;
+    }
+    .footer-brand .logo .dot { color: var(--sun); }
+    .footer-brand p { font-size: 0.87rem; line-height: 1.7; max-width: 260px; }
+    .footer-brand .domains {
+      margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .footer-brand .domains a {
+      font-size: 0.75rem; font-weight: 700; color: #94A3B8;
+      background: rgba(255,255,255,0.08); padding: 4px 10px;
+      border-radius: 100px; text-decoration: none; transition: color 0.2s;
+    }
+    .footer-brand .domains a:hover { color: white; }
+    .footer-col h4 { font-size: 0.82rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: white; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: #94A3B8; text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 28px; text-align: center;
+      font-size: 0.82rem; color: #64748B;
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: white; border-bottom: 1.5px solid #E2EAF4;
+      padding: 20px 5vw 28px; z-index: 99;
+      flex-direction: column; gap: 16px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-weight: 700; color: var(--ink); text-decoration: none; font-size: 1rem;
+      padding: 10px 0; border-bottom: 1px solid #F1F5F9;
+    }
+    .mobile-menu .mob-cta {
+      background: var(--ocean); color: white; text-align: center;
+      padding: 14px; border-radius: 100px; font-size: 1rem;
+      margin-top: 6px; border: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero p { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { margin-top: 40px; }
+      .hero-stats { justify-content: center; }
+      .how-steps { grid-template-columns: 1fr; gap: 40px; }
+      .how-steps::before { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 540px) {
+      .subject-grid { grid-template-columns: 1fr 1fr; max-width: 280px; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sub-card { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="#">
-        <img src="trc-education-logo.png" alt="TRC Education logo" />
-      </a>
-      <nav>
-        <a href="#programs">Programs</a>
-        <a href="#why">Why TRC</a>
-        <a href="#contact">Contact</a>
-      </nav>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">TRC<span class="dot">.</span>edu</a>
+  <ul class="nav-links">
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#tutors">Tutors</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a free trial</a>
+  <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#subjects" onclick="toggleMenu()">Subjects</a>
+  <a href="#how" onclick="toggleMenu()">How it works</a>
+  <a href="#tutors" onclick="toggleMenu()">Tutors</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#contact" class="mob-cta" onclick="toggleMenu()">Book a free trial</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag"><span>🎓</span> Online Tutoring Platform</div>
+      <h1>Learning that <em>clicks</em> — for every student</h1>
+      <p>TRC Edu connects students with expert tutors across all subjects. Live sessions, flexible schedules, and real results — from Grade 1 to competitive exams.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Book a free trial →</a>
+        <a href="#subjects" class="btn-secondary">Explore subjects</a>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">LEARN • ASK • GROW</p>
-          <h1>Online learning support beyond school hours.</h1>
-          <p class="hero-text">
-            TRC Education is built as a safe, supportive online space where students can ask questions,
-            strengthen concepts, and grow with confidence after school.
-          </p>
-          <div class="cta-row">
-            <a class="btn primary" href="mailto:info@trcedu.com">Book a Consultation</a>
-            <a class="btn secondary" href="#programs">View Programs</a>
-          </div>
+    <div class="hero-visual">
+      <div class="subject-grid">
+        <div class="sub-card">
+          <span class="sub-icon">➕</span>
+          <span class="sub-name">Mathematics</span>
+          <span class="sub-level">Grades 1–12</span>
         </div>
-        <div class="hero-card">
-          <h2>For IGCSE, AS & A Level Students</h2>
-          <p>Personalized online academic support with structured guidance, doubt clearing, and regular progress tracking.</p>
-          <ul>
-            <li>Cambridge-focused support</li>
-            <li>After-school online sessions</li>
-            <li>Confidence-first learning</li>
-          </ul>
+        <div class="sub-card">
+          <span class="sub-icon">🔬</span>
+          <span class="sub-name">Science</span>
+          <span class="sub-level">Physics · Chem · Bio</span>
+        </div>
+        <div class="sub-card">
+          <span class="sub-icon">📖</span>
+          <span class="sub-name">English</span>
+          <span class="sub-level">Reading & Writing</span>
+        </div>
+        <div class="sub-card">
+          <span class="sub-icon">💻</span>
+          <span class="sub-name">Coding</span>
+          <span class="sub-level">Python · Web · AI</span>
         </div>
       </div>
-    </section>
-
-    <section id="programs" class="section">
-      <div class="container">
-        <p class="eyebrow">PROGRAMS</p>
-        <h2>Academic support for international curriculum students.</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>Cambridge IGCSE</h3>
-            <p>Mathematics, Physics, Chemistry, Biology, English and subject-specific doubt clearing.</p>
-          </div>
-          <div class="card">
-            <h3>AS & A Levels</h3>
-            <p>Concept strengthening, exam preparation, guided practice and academic mentoring.</p>
-          </div>
-          <div class="card">
-            <h3>After-School Help</h3>
-            <p>A reliable online space for students who need support after regular school hours.</p>
-          </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">1,200+</div>
+          <div class="stat-label">Students taught</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">95%</div>
+          <div class="stat-label">Grade improvement</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4.9★</div>
+          <div class="stat-label">Average rating</div>
         </div>
       </div>
-    </section>
-
-    <section id="why" class="section light">
-      <div class="container split">
-        <div>
-          <p class="eyebrow">WHY TRC EDUCATION</p>
-          <h2>Where every question is welcome.</h2>
-          <p>
-            We believe students learn better when they feel safe to ask, clarify and try again.
-            Our goal is to make online learning feel personal, calm and dependable.
-          </p>
-        </div>
-        <div class="feature-list">
-          <div>✓ Safe online learning environment</div>
-          <div>✓ Personalized attention</div>
-          <div>✓ Flexible scheduling</div>
-          <div>✓ Regular parent updates</div>
-          <div>✓ Structured concept revision</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact">
-      <div class="container">
-        <p class="eyebrow">CONTACT</p>
-        <h2>Start with a consultation.</h2>
-        <p>For admissions, academic support or tutor enquiries, reach out to us.</p>
-        <div class="contact-box">
-          <a href="mailto:info@trcedu.com">info@trcedu.com</a>
-          <a href="https://www.trcedu.com">www.trcedu.com</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <span>© 2026 TRC Education</span>
-      <span>Learn • Ask • Grow</span>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="subjects" id="subjects">
+  <p class="section-label">What we teach</p>
+  <h2 class="section-title">Every subject, every level</h2>
+  <p class="section-sub">From primary school fundamentals to competitive exam prep — our tutors cover it all.</p>
+  <div class="subjects-grid">
+    <a href="#contact" class="subject-card">
+      <span class="icon">➕</span>
+      <div class="name">Mathematics</div>
+      <div class="grades">Grade 1 – 12 · JEE · SAT</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">⚛️</span>
+      <div class="name">Physics</div>
+      <div class="grades">Grade 8 – 12 · JEE · NEET</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">🧪</span>
+      <div class="name">Chemistry</div>
+      <div class="grades">Grade 8 – 12 · JEE · NEET</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">🧬</span>
+      <div class="name">Biology</div>
+      <div class="grades">Grade 6 – 12 · NEET</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">📖</span>
+      <div class="name">English</div>
+      <div class="grades">All grades · IELTS · TOEFL</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">🌏</span>
+      <div class="name">Social Studies</div>
+      <div class="grades">Grade 1 – 10</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">💻</span>
+      <div class="name">Computer Science</div>
+      <div class="grades">Grade 6 – 12 · Python · Web</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">🧮</span>
+      <div class="name">Accountancy</div>
+      <div class="grades">Grade 11 – 12 · CA Foundation</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">🎯</span>
+      <div class="name">Exam Prep</div>
+      <div class="grades">JEE · NEET · SAT · IELTS</div>
+    </a>
+    <a href="#contact" class="subject-card">
+      <span class="icon">🗣️</span>
+      <div class="name">Hindi / Sanskrit</div>
+      <div class="grades">Grade 1 – 10</div>
+    </a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <p class="section-label">Getting started</p>
+  <h2 class="section-title">Three steps to your first session</h2>
+  <p class="section-sub">No complicated onboarding. Pick a subject, meet your tutor, start learning.</p>
+  <div class="how-steps">
+    <div class="step">
+      <div class="step-num">📋</div>
+      <h3>Tell us what you need</h3>
+      <p>Fill in a quick form — subject, grade, and your availability. We'll suggest the best tutor match within 24 hours.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">🤝</div>
+      <h3>Meet your tutor free</h3>
+      <p>Your first 30-minute trial session is completely free. No pressure, no commitment — just see if it's a good fit.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">🚀</div>
+      <h3>Learn on your schedule</h3>
+      <p>Choose your session frequency and time. Attend live via video, with recordings available after every session.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TUTORS -->
+<section class="tutors" id="tutors">
+  <p class="section-label">Meet the team</p>
+  <h2 class="section-title">Tutors who genuinely care</h2>
+  <p class="section-sub">Every TRC tutor is vetted, qualified, and trained to make complex topics feel easy.</p>
+  <div class="tutors-grid">
+    <div class="tutor-card">
+      <div class="tutor-avatar" style="background:#EAF4FF">🧑‍🏫</div>
+      <h3>Priya Sharma</h3>
+      <div class="tutor-subject">Mathematics · Physics</div>
+      <p class="tutor-bio">IIT graduate with 8 years of experience. Specialises in helping students crack JEE and board exams with clarity and confidence.</p>
+      <div class="tutor-meta">
+        <span>⭐ 4.9</span>
+        <span>👩‍🎓 340 students</span>
+      </div>
+    </div>
+    <div class="tutor-card">
+      <div class="tutor-avatar" style="background:#D1FAE5">👩‍💻</div>
+      <h3>Arjun Menon</h3>
+      <div class="tutor-subject">Computer Science · Coding</div>
+      <p class="tutor-bio">Software engineer turned educator. Makes Python and web development fun for beginners from Grade 6 upwards.</p>
+      <div class="tutor-meta">
+        <span>⭐ 5.0</span>
+        <span>👩‍🎓 210 students</span>
+      </div>
+    </div>
+    <div class="tutor-card">
+      <div class="tutor-avatar" style="background:#FEF3C7">📚</div>
+      <h3>Sneha Iyer</h3>
+      <div class="tutor-subject">English · IELTS Prep</div>
+      <p class="tutor-bio">MA in English Literature with a passion for building strong reading and writing foundations. IELTS Band 9 scorer.</p>
+      <div class="tutor-meta">
+        <span>⭐ 4.8</span>
+        <span>👩‍🎓 285 students</span>
+      </div>
+    </div>
+    <div class="tutor-card">
+      <div class="tutor-avatar" style="background:#FEE2E2">🔬</div>
+      <h3>Dr. Kavita Nair</h3>
+      <div class="tutor-subject">Biology · Chemistry · NEET</div>
+      <p class="tutor-bio">MBBS graduate and NEET coach. Turns dense biology content into memorable stories and mnemonics students actually remember.</p>
+      <div class="tutor-meta">
+        <span>⭐ 4.9</span>
+        <span>👩‍🎓 190 students</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-title">Simple, honest pricing</h2>
+  <p class="section-sub">No hidden fees. Cancel anytime. First session is always free.</p>
+  <div class="pricing-grid">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price"><sup>₹</sup>999</div>
+      <div class="plan-period">per month · 4 sessions</div>
+      <ul class="plan-features">
+        <li>4 live sessions / month</li>
+        <li>1 subject</li>
+        <li>Session recordings</li>
+        <li>Chat support</li>
+      </ul>
+      <a href="#contact" class="plan-btn">Get started</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-tag">Most popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price"><sup>₹</sup>2,499</div>
+      <div class="plan-period">per month · 12 sessions</div>
+      <ul class="plan-features">
+        <li>12 live sessions / month</li>
+        <li>Up to 3 subjects</li>
+        <li>Session recordings</li>
+        <li>Priority tutor matching</li>
+        <li>Progress reports</li>
+        <li>Parent dashboard access</li>
+      </ul>
+      <a href="#contact" class="plan-btn">Get started</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Intensive</div>
+      <div class="plan-price"><sup>₹</sup>4,499</div>
+      <div class="plan-period">per month · unlimited</div>
+      <ul class="plan-features">
+        <li>Unlimited sessions</li>
+        <li>All subjects</li>
+        <li>Dedicated tutor</li>
+        <li>Exam strategy sessions</li>
+        <li>Weekly parent calls</li>
+        <li>Mock tests & feedback</li>
+      </ul>
+      <a href="#contact" class="plan-btn">Get started</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <p class="section-label">Student stories</p>
+  <h2 class="section-title">What our students say</h2>
+  <p class="section-sub">Real feedback from real families.</p>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"My daughter went from failing math to scoring 92% in boards. The TRC tutor understood exactly where she was stuck and fixed it."</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:#EAF4FF">👩</div>
+        <div>
+          <div class="test-name">Meera Pillai</div>
+          <div class="test-role">Parent · Grade 10 student</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"I was really nervous about JEE but my physics tutor broke everything down so well. Got AIR 2,400 — couldn't have done it without TRC."</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:#D1FAE5">🧑</div>
+        <div>
+          <div class="test-name">Rahul Deshmukh</div>
+          <div class="test-role">JEE student · 2024 batch</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"The flexible scheduling is a lifesaver. My son fits sessions around cricket practice and his IELTS score jumped from 6.5 to 8.0!"</p>
+      <div class="test-author">
+        <div class="test-avatar" style="background:#FEF3C7">👨</div>
+        <div>
+          <div class="test-name">Thomas George</div>
+          <div class="test-role">Parent · IELTS student</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <p class="section-label">Questions</p>
+  <h2 class="section-title">Frequently asked</h2>
+  <p class="section-sub">Anything else? Just drop us a message.</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is the first session really free? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes, completely. Your first 30-minute trial session has no cost and no obligation. It's a chance to meet your tutor and see if TRC is the right fit before you commit to anything.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What platform are the sessions held on? <span class="arrow">▾</span></button>
+      <div class="faq-a">Sessions are held via Zoom or Google Meet — whichever you prefer. We also use an interactive whiteboard so tutors can draw diagrams and solve problems together with your child in real time.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I switch tutors if it's not a good match? <span class="arrow">▾</span></button>
+      <div class="faq-a">Absolutely. If you feel the tutor isn't the right fit at any point, just let us know and we'll rematch you within 24 hours at no extra charge.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Are sessions recorded? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes. All sessions are recorded and made available to you within a few hours. Students can revisit explanations anytime to review before tests or exams.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Which boards and curricula do you cover? <span class="arrow">▾</span></button>
+      <div class="faq-a">We cover CBSE, ICSE, State Boards (India), IGCSE, IB, and international curricula. We also offer dedicated prep for JEE, NEET, SAT, IELTS, TOEFL, and other competitive exams.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is TRC Edu available outside India? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes! We serve students globally via TRCedu.com. Our tutors work across time zones to accommodate international students in the US, UK, UAE, Singapore, and beyond.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <h2>Start learning today — first session free</h2>
+  <p>Join 1,200+ students building confidence and scoring higher with TRC Edu.</p>
+  <a href="mailto:hello@trcedu.com" class="btn-white">📩 Book your free trial</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">TRC<span class="dot">.</span>edu</a>
+      <p>Quality online tutoring for every student, every subject, every goal. Available 7 days a week across all time zones.</p>
+      <div class="domains">
+        <a href="https://trcedu.com" target="_blank">trcedu.com</a>
+        <a href="https://trcedu.in" target="_blank">trcedu.in</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Subjects</h4>
+      <ul>
+        <li><a href="#subjects">Mathematics</a></li>
+        <li><a href="#subjects">Science</a></li>
+        <li><a href="#subjects">English</a></li>
+        <li><a href="#subjects">Coding</a></li>
+        <li><a href="#subjects">Exam Prep</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#tutors">Our tutors</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#testimonials">Success stories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@trcedu.com">hello@trcedu.com</a></li>
+        <li><a href="mailto:hello@trcedu.in">hello@trcedu.in</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Book a session</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2024 TRC Edu. All rights reserved. · <a href="#" style="color:#64748B">Privacy Policy</a> · <a href="#" style="color:#64748B">Terms of Service</a>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.subject-card, .tutor-card, .plan, .test-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>
